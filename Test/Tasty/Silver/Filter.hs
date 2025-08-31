@@ -29,7 +29,7 @@ import qualified Text.Regex.TDFA as R
 
 import Test.Tasty         ( TestTree, testGroup )
 import Test.Tasty.Options ( IsOption(..), OptionSet, lookupOption )
-import Test.Tasty.Runners ( TestTree(AskOptions, SingleTest, TestGroup, PlusTestOptions, WithResource) )
+import Test.Tasty.Runners ( TestTree(After, AskOptions, SingleTest, TestGroup, PlusTestOptions, WithResource) )
 
 -- | Path into the 'TestTree'.  Separator is the slash character(@'/'@).
 type TestPath = String
@@ -127,6 +127,9 @@ filterWithPred f tree = fromMaybe emptyTest $ filter' "/" tree
       -- if later on we see that the child subtree was excluded.
       WithResource r t    -> Just $ WithResource r $ \ x -> fromMaybe emptyTest $ filter' path $ t x
       AskOptions t        -> Just $ AskOptions     $ \ o -> fromMaybe emptyTest $ filter' path $ t o
+#if MIN_VERSION_tasty(1,2,0)
+      After dep exp t     -> After dep exp <$> filter' path t
+#endif
 
     x <//> y = x ++ "/" ++ y
 
