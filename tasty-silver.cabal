@@ -1,6 +1,6 @@
-cabal-version:       1.14
+cabal-version:       1.18
 name:                tasty-silver
-version:             3.3.2
+version:             3.3.2.1
 synopsis:            A fancy test runner, including support for golden tests.
 description:
   This package provides a fancy test runner and support for «golden testing».
@@ -20,11 +20,10 @@ Homepage:            https://github.com/phile314/tasty-silver
 Bug-reports:         https://github.com/phile314/tasty-silver/issues
 author:              Philipp Hausmann, Andreas Abel, Roman Cheplyaka, and others
 maintainer:          Andreas Abel, Philipp Hausmann
--- copyright:
 category:            Testing
 build-type:          Simple
 
-extra-source-files:
+extra-doc-files:
   CHANGELOG.md
   README.md
 
@@ -57,29 +56,28 @@ library
     Test.Tasty.Silver.Interactive.Run
     Test.Tasty.Silver.Internal
 
+  -- Lower bounds taken from GHC 8.0 and Stackage LTS 7.0
   build-depends:
-      base           >= 4.9 && < 5
+      base                  >= 4.9 && < 5
         -- Drop support for GHC 7
-    , ansi-terminal  >= 0.6.2.1
-    , bytestring     >= 0.10.0.0
-        -- bytestring-0.10 needed by process-extras-0.3
-    , containers
-    , directory      >= 1.2.3.0
-        -- withCurrentDirectory needs at least 1.2.3.0
-    , filepath
-    , mtl
-    , optparse-applicative
-    , process        >= 1.2
-    , process-extras >= 0.3
-        -- readCreateProcessWithExitCode needs at least 0.3
-    , regex-tdfa     >= 1.2.0
-    , silently       >= 1.2.5.1
-        -- Andreas Abel, 2021-09-05, latest silently is today 1.2.5.1
-    , stm            >= 2.4.2
-    , tagged
-    , tasty          >= 1.4
-    , temporary
-    , text           >= 0.11.0.0
+    , ansi-terminal         >= 0.6.2.3
+    , bytestring            >= 0.10.8.0
+    , containers            >= 0.5.7.1
+    , directory             >= 1.2.6.2
+    , filepath              >= 1.4.1.0
+    , mtl                   >= 2.2.1
+    , optparse-applicative  >= 0.12.1.0
+    , process               >= 1.4.2.0
+    , process-extras        >= 0.4.1.4
+    , regex-tdfa            >= 1.2.2
+    , silently              >= 1.2.5.1
+        -- 1.2.5.1 contains a bugfix (Windows NUL device) over 1.2.5
+    , stm                   >= 2.4.4.1
+    , tagged                >= 0.8.5
+    , tasty                 >= 1.4
+        -- LTS 7.0 contains a much older tasty: 0.11.0.4
+    , temporary             >= 1.2.0.4
+    , text                  >= 1.2.2.1
 
   default-language:
     Haskell2010
@@ -124,10 +122,8 @@ Test-suite test
     , tasty-silver
     , filepath
     , directory
-    , process
     , silently
     , temporary
-    , transformers
 
   ghc-options:
     -Wall

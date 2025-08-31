@@ -1,8 +1,12 @@
 Changes
 =======
 
-* Drop support for GHC 7.
+Version 3.3.2.1 (31 Aug 2025)
+---------------
 
+* Drop support for GHC 7.
+* Rudimentary treatment for `After` in `TestTree`
+  (cf. [#28](https://github.com/phile314/tasty-silver/issues/28)).
 * Tested with GHC 8.0 - 9.12.2.
 
 Version 3.3.2 (18 Jul 2024)
